@@ -5,17 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    geoLocationKey: 'a5098321bc0c497f880e902b7fc46b1c',
-    geoLocationUri: 'https://api.ipgeolocation.io/ipgeo',
-    weatherKey: 'a9ee34d3ad99d94a00c5748f8ee6116b',
-    weatherUri: 'https://api.openweathermap.org/data/2.5/',
+    geoLocationKey: process.env.VUE_APP_GEO_LOCATION_KEY,
+    geoLocationUri: process.env.VUE_APP_GEO_LOCATION_URI,
+    weatherKey: process.env.VUE_APP_WEATHER_KEY,
+    weatherUri: process.env.VUE_APP_WEATHER_URI,
     searchCity: false,
     currentWeather: [],
     findList: [],
     searchError: false,
     btn_loading: false,
     app_loading: false,
-    text_to_search: '',
+    format: 'c',
     forecast: [
       {
         dt_txt: new Date(),
@@ -47,11 +47,9 @@ export default new Vuex.Store({
   mutations: {
     SET_WEATHER(state, weather) {
       state.currentWeather = weather
-      console.log(weather)
     },
     SET_FORECAST(state, forecast) {
       state.forecast = forecast
-      console.log(forecast)
     },
     SET_FIND_LIST(state, findList) {
       state.findList = findList
@@ -67,6 +65,12 @@ export default new Vuex.Store({
     },
     SET_SEARCH_CITY(state, value) {
       state.searchCity = value
+    },
+    SET_TEMP_TYPE(state, type) {
+      state.temp_type = type
+    },
+    SET_FORMAT(state, value) {
+      state.format = value
     }
   },
   actions: {
@@ -127,7 +131,7 @@ export default new Vuex.Store({
         commit('SET_APP_LOADING', false)
       }
     },
-    async find({ commit }, text) {
+    async findLocation({ commit }, text) {
       if (text.trim() === '' || text.length < 3) {
         commit('SET_SEARCH_ERROR', true)
         return
@@ -160,12 +164,15 @@ export default new Vuex.Store({
     getSelectedOption({ commit, dispatch }, id) {
       const data = this.state.findList.find(item => item.id === id)
       dispatch('getWeather', [data.coord.lat, data.coord.lon])
-      this.state.findList = []
+      this.state.findListh = []
       commit('SET_FIND_LIST', [])
       dispatch('setSearchCity', false)
     },
     setSearchCity({ commit }, value) {
       commit('SET_SEARCH_CITY', value)
+    },
+    changeFormat({ commit }, value) {
+      commit('SET_FORMAT', value)
     }
   },
   modules: {}
