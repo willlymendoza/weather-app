@@ -20,7 +20,7 @@
               ></v-progress-circular>
             </v-overlay>
 
-            <!-- SEARCH BY CITY, STATE, COUNTRY ... -->
+            <!-- SEARCH BY CITY, STATE, COUNTRY .... -->
             <v-expand-transition>
               <SearchByCity />
             </v-expand-transition>
