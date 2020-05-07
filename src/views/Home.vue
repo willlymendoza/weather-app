@@ -7,7 +7,7 @@
             <!-- CURRENT WEATHER INFO -->
             <CurrentWeather />
 
-            <!-- LOADING ANIMATION-->
+            <!-- LOADING ANIMATION -->
             <v-overlay
               absolute
               :value="app_loading"
