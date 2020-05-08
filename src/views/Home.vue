@@ -1,5 +1,5 @@
 <template>
-  <v-content class="">
+  <v-content class="grey lighten-3 ">
     <v-container class="fill-height">
       <v-row justify="center">
         <v-col cols="12" sm="6">
@@ -83,7 +83,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      timeout: 20000
+      timeout: 5000
     }
   },
   components: {
