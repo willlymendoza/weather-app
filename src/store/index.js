@@ -16,6 +16,8 @@ export default new Vuex.Store({
     btn_loading: false,
     app_loading: false,
     format: 'c',
+    snackBarShow: false,
+    snackBarText: '',
     forecast: [
       {
         dt_txt: new Date(),
@@ -71,12 +73,22 @@ export default new Vuex.Store({
     },
     SET_FORMAT(state, value) {
       state.format = value
+    },
+    SET_SNACK_BAR(state, value) {
+      state.snackBarShow = value
+    },
+    SET_SNACK_BAR_TEXT(state, value) {
+      state.snackBarText = value
     }
   },
   actions: {
     getLocation({ dispatch }) {
+      dispatch('setSnackBar', false)
       if (!('geolocation' in navigator)) {
-        console.log('Geolocation is not available')
+        dispatch(
+          'setSnackBarText',
+          'Geolocation is not available in your browser'
+        )
         return
       }
 
@@ -85,7 +97,11 @@ export default new Vuex.Store({
           dispatch('getWeather', [pos.coords.latitude, pos.coords.longitude])
         },
         err => {
-          alert('You need to allow location to get your local weather')
+          dispatch('setSnackBar', false)
+          dispatch(
+            'setSnackBarText',
+            'You need to allow location in your browser to get your local weather'
+          )
           console.log(err)
         }
       )
@@ -173,6 +189,13 @@ export default new Vuex.Store({
     },
     changeFormat({ commit }, value) {
       commit('SET_FORMAT', value)
+    },
+    setSnackBarText({ commit, dispatch }, value) {
+      commit('SET_SNACK_BAR_TEXT', value)
+      dispatch('setSnackBar', true)
+    },
+    setSnackBar({ commit }, value) {
+      commit('SET_SNACK_BAR', value)
     }
   },
   modules: {}

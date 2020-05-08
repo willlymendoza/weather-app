@@ -4,6 +4,11 @@
       <v-row justify="center">
         <v-col cols="12" sm="6">
           <v-card class="content_gradient" dark>
+            <!-- TITLE -->
+            <v-card-title class="my-0 pb-0 content_gradient" style="opacity: .8"
+              ><h3>WeatherApp</h3></v-card-title
+            >
+            <v-divider class="mx-5"></v-divider>
             <!-- CURRENT WEATHER INFO -->
             <CurrentWeather />
 
@@ -21,9 +26,7 @@
             </v-overlay>
 
             <!-- SEARCH BY CITY, STATE, COUNTRY .... -->
-            <v-expand-transition>
-              <SearchByCity />
-            </v-expand-transition>
+            <SearchByCity />
 
             <!-- FORECAST INFO -->
             <v-card-subtitle class="headline">Forecast (12:00)</v-card-subtitle>
@@ -38,6 +41,30 @@
                 >Search by city name</v-btn
               >
             </v-card-actions>
+
+            <!-- SNACK BAR -->
+            <v-snackbar
+              :value="snackBarShow"
+              :timeout="timeout"
+              absolute
+              multi-line
+              style="opacity: 0.9; color: black;"
+              color="white"
+            >
+              <div>
+                {{ snackBarText }}
+                <v-card-actions class="py-0">
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="error darken-3"
+                    text
+                    @click="setSnackBar(false)"
+                  >
+                    CLOSE
+                  </v-btn>
+                </v-card-actions>
+              </div>
+            </v-snackbar>
           </v-card>
         </v-col>
       </v-row>
@@ -54,16 +81,27 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      timeout: 20000
+    }
+  },
   components: {
     SearchByCity,
     Forecast,
     CurrentWeather
   },
   computed: {
-    ...mapState(['currentWeather', 'app_loading', 'forecast'])
+    ...mapState([
+      'currentWeather',
+      'app_loading',
+      'forecast',
+      'snackBarShow',
+      'snackBarText'
+    ])
   },
   methods: {
-    ...mapActions(['getLocation', 'getIpData', 'setSearchCity'])
+    ...mapActions(['getLocation', 'getIpData', 'setSearchCity', 'setSnackBar'])
   },
   created() {
     this.getIpData()
