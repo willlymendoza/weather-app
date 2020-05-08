@@ -63,10 +63,10 @@
 
     <v-list-item>
       <v-btn v-if="format === 'c'" text class="px-0" @click="changeType('f')">
-        Pass to &deg;F
+        Convert to &deg;F
       </v-btn>
       <v-btn v-else @click="changeType('c')" text class="px-0">
-        Pass to &deg;C
+        Convert to &deg;C
       </v-btn>
     </v-list-item>
   </div>
