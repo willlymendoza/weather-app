@@ -1,11 +1,14 @@
 # WeatherApp
 
-Made with:
+### Made with:
+
+```
 HTML
 CSS
 JAVASCRIPT
 VUE.JS v2.6.11
 VUETIFY v2.2.11
+```
 
 This application allows you to know the current weather based on your location, city or country.
 
