@@ -1,5 +1,7 @@
 # WeatherApp
 
+### [Preview](https://weatherapp-by-willy.netlify.app/)
+
 ### Made with:
 
 ```
